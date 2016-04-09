@@ -6,7 +6,7 @@ require_relative 'vagrant_rancheros_guest_plugin.rb'
 # To enable rsync folder share change to false
 $rsync_folder_disabled = true
 $number_of_nodes = 1
-$vm_mem = "1024"
+$vm_mem = "2048"
 $vb_gui = false
 
 
@@ -30,6 +30,7 @@ Vagrant.configure(2) do |config|
         ip = "172.19.8.#{i+100}"
         node.vm.network "private_network", ip: ip
         node.vm.hostname = hostname
+        node.vm.network :forwarded_port, guest: 8080, host: 8080
 
         # Disabling compression because OS X has an ancient version of rsync installed.
         # Add -z or remove rsync__args below if you have a newer version of rsync on your machine.
